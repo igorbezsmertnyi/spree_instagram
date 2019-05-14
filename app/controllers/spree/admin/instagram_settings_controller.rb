@@ -3,18 +3,28 @@ module Spree
     class InstagramSettingsController < Spree::Admin::BaseController
       include Spree::Backend::Callbacks
 
-      before_action :load_resource, only: %i[edit update]
+      before_action :load_resource, only: %i[edit update destroy]
 
       def edit; end
 
       def update
         if resource.update(instagram_setting_params)
-          flash[:success] = Spree.t(:success, resource: Spree.t(:instagram_settiongs))
+          flash[:success] = Spree.t(:success_updeate, resource: Spree.t(:instagram_settiongs))
         else
-          flash[:error] = Spree.t(:failed, resource: Spree.t(:instagram_settiongs))
+          flash[:error] = Spree.t(:failed_update, resource: Spree.t(:instagram_settiongs))
         end
 
         render :edit
+      end
+
+      def destroy
+        if resource.destroy
+          flash[:success] = Spree.t(:success_destroy, resource: Spree.t(:instagram_settiongs))
+        else
+          flash[:error] = Spree.t(:failed_destroy, resource: Spree.t(:instagram_settiongs))
+        end
+
+        redirect_to edit_admin_instagram_settings_path
       end
 
       private

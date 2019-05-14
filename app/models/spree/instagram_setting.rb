@@ -7,6 +7,14 @@ class Spree::InstagramSetting < ApplicationRecord
     first_or_create.target_account
   end
 
+  def self.code
+    first_or_create.code
+  end
+
+  def self.set_code(code)
+    first_or_create.update(code: code)
+  end
+
   def self.set_access_token(access_token)
     first_or_create.update(access_token: access_token)
   end
